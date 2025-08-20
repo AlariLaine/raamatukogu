@@ -1,0 +1,4 @@
+/* public/css/custom.css */
+:root{ --brand:#2f4858; }
+body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', 'Noto Sans', Arial, 'Apple Color Emoji','Segoe UI Emoji'; }
+.navbar { background: var(--brand) !important; }
