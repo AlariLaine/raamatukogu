@@ -44,12 +44,12 @@ $books = $stmt->fetchAll();
             <td><?php echo (int)$b['available_copies']; ?></td>
             <td>
               <?php if(isset($_SESSION['user_id'])): ?>
-                <form class="d-inline" method="post" action="/raamatukogu/actions/reserve.php">
+                <form class="d-inline" method="post" action="/raamatukogu/actions/reservations.php">
                   <input type="hidden" name="book_id" value="<?php echo (int)$b['id']; ?>">
                   <input type="hidden" name="csrf" value="<?php echo csrf_token(); ?>">
                   <button class="btn btn-sm btn-outline-secondary">Broneeri (2p)</button>
                 </form>
-                <form class="d-inline" method="post" action="/raamatukogu/actions/loan.php">
+                <form class="d-inline" method="post" action="/raamatukogu/actions/loans.php">
                   <input type="hidden" name="book_id" value="<?php echo (int)$b['id']; ?>">
                   <input type="hidden" name="csrf" value="<?php echo csrf_token(); ?>">
                   <button class="btn btn-sm btn-primary">Laenuta</button>
