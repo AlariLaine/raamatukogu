@@ -11,11 +11,20 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
   elseif(strlen($personal_code)!==11){ $err='Isikukood peab olema 11 numbrit.'; }
   elseif($pw!==$pw2){ $err='Paroolid ei ühti.'; }
   else{
-    $hash=password_hash($pw, PASSWORD_DEFAULT);
-    $st=$conn->prepare("INSERT INTO users (firstname, lastname, personal_code, email, password, role) VALUES (?,?,?,?,?,'user')");
-    $st->bind_param("sssss",$firstname,$lastname,$personal_code,$email,$hash);
-    if($st->execute()){ $_SESSION['user_id']=$st->insert_id; $_SESSION['firstname']=$firstname; $_SESSION['role']='user'; redirect('/public/'); }
-    else $err='Registreerimine ebaõnnestus: '.$conn->error;
+    // uus kontroll duplikaatide vastu
+    $check = $conn->prepare("SELECT id FROM users WHERE personal_code=? OR email=?");
+    $check->bind_param("ss", $personal_code, $email);
+    $check->execute();
+    $check->store_result();
+    if ($check->num_rows > 0) {
+      $err='Sellise isikukoodi või e-postiga kasutaja on juba olemas!';
+    } else {
+      $hash=password_hash($pw, PASSWORD_DEFAULT);
+      $st=$conn->prepare("INSERT INTO users (firstname, lastname, personal_code, email, password, role) VALUES (?,?,?,?,?,'user')");
+      $st->bind_param("sssss",$firstname,$lastname,$personal_code,$email,$hash);
+      if($st->execute()){ $_SESSION['user_id']=$st->insert_id; $_SESSION['firstname']=$firstname; $_SESSION['role']='user'; redirect('/public/'); }
+      else $err='Registreerimine ebaõnnestus: '.$conn->error;
+    }
   }
 }
 include __DIR__ . '/../templates/header.php'; ?>
