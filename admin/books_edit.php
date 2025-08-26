@@ -7,6 +7,7 @@ $stmt = $pdo->prepare("SELECT * FROM books WHERE id = ?");
 $stmt->execute([$id]);
 $book = $stmt->fetch();
 if(!$book){ echo "<div class='alert alert-warning'>Raamatut ei leitud.</div>"; require __DIR__.'/../templates/footer.php'; exit; }
+if(!$book){ echo "<div class='alert alert-warning'>Book not found.</div>"; require __DIR__.'/../templates/footer.php'; exit; }
 
 $as = $pdo->prepare("SELECT a.name FROM authors a JOIN book_authors ba ON ba.author_id=a.id WHERE ba.book_id=?");
 $as = $pdo->prepare("SELECT a.name FROM authors a JOIN book_authors ba ON ba.author_id=a.id WHERE ba.book_id=?");
@@ -20,6 +21,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     $authors_in = trim($_POST['authors'] ?? '');
     $csrf = $_POST['csrf'] ?? '';
     if(!csrf_check($csrf)) die("Vigane vorm.");
+        if(!csrf_check($csrf)) die("Invalid form.");
     $avail = $book['available_copies'] + ($copies - $book['total_copies']);
     if($avail < 0) $avail = 0;
     $pdo->beginTransaction();
@@ -27,6 +29,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
         $pdo->prepare("UPDATE books SET title=?, isbn=?, total_copies=?, available_copies=? WHERE id=?")
             ->execute([$title,$isbn,$copies,$avail,$id]);
         // uuenda autoreid: lihtsuse mõttes kustuta ja lisa uuesti
+        // update authors: for simplicity, delete and add again
         $pdo->prepare("DELETE FROM book_authors WHERE book_id=?")->execute([$id]);
         foreach(array_filter(array_map('trim', explode(',', $authors_in))) as $aname){
             $s = $pdo->prepare("SELECT id FROM authors WHERE name = ?");

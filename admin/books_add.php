@@ -10,9 +10,9 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     $csrf = $_POST['csrf'] ?? '';
     $errors = [];
 
-    if(!csrf_check($csrf)) $errors[] = "Vigane vorm.";
-    if($title==='') $errors[] = "Pealkiri on nõutud.";
-    if($copies < 1) $errors[] = "Eksemplaride arv peab olema vähemalt 1.";
+    if(!csrf_check($csrf)) $errors[] = "Invalid form.";
+    if($title==='') $errors[] = "Title is required.";
+    if($copies < 1) $errors[] = "Number of copies must be at least 1.";
 
     if(empty($errors)){
         $pdo->beginTransaction();
@@ -37,7 +37,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
             exit;
         } catch(Exception $e){
             $pdo->rollBack();
-            echo '<div class="alert alert-danger">Viga: '.e($e->getMessage()).'</div>';
+            echo '<div class="alert alert-danger">Error: '.e($e->getMessage()).'</div>';
         }
     } else {
         echo '<div class="alert alert-danger"><ul class="mb-0"><li>'.implode('</li><li>', array_map('e',$errors)).'</li></ul></div>';

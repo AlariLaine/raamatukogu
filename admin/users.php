@@ -24,7 +24,7 @@ include __DIR__ . '/../templates/header.php'; ?>
             <th>Nimi</th>
             <th>E-post</th>
             <th>Roll</th>
-            <th>Muuda rolli / Kustuta</th>
+            <th>Muuda rolli</th>
         </tr>
     </thead>
     <tbody>
@@ -42,14 +42,6 @@ include __DIR__ . '/../templates/header.php'; ?>
                     </select>
                     <button class="btn btn-sm btn-primary">Salvesta</button>
                 </form>
-
-                <?php if ($_SESSION['user_id'] != $u['id']): ?>
-                <form method="post" action="delete_user.php"
-                    onsubmit="return confirm('Kas oled kindel, et soovid kustutada kasutaja?');">
-                    <input type="hidden" name="id" value="<?= (int)$u['id'] ?>">
-                    <button class="btn btn-sm btn-danger">Kustuta</button>
-                </form>
-                <?php endif; ?>
             </td>
         </tr>
         <?php endwhile; ?>

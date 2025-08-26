@@ -22,15 +22,15 @@ $loans = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <?php include("../templates/header.php"); ?>
 
 <div class="container mt-4">
-    <h3>Minu laenutused</h3>
+    <h3>My Loans</h3>
     <?php if (count($loans) > 0): ?>
         <table class="table table-striped mt-3">
             <thead>
                 <tr>
-                    <th>Raamat</th>
-                    <th>Laenutatud</th>
-                    <th>Tagastamise tähtaeg</th>
-                    <th>Staatus</th>
+                    <th>Book</th>
+                    <th>Loaned</th>
+                    <th>Due date</th>
+                    <th>Status</th>
                 </tr>
             </thead>
             <tbody>

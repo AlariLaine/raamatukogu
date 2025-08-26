@@ -3,10 +3,10 @@ require_once __DIR__.'/../includes/staff_check.php';
 require_once __DIR__.'/../templates/header.php';
 $users = $pdo->query("SELECT id, first_name, last_name, email, personal_code, role FROM users ORDER BY created_at DESC")->fetchAll();
 ?>
-<h1 class="h4 mb-3">Kasutajad</h1>
+<h1 class="h4 mb-3">Users</h1>
 <div class="table-responsive">
 <table class="table table-striped">
-  <thead><tr><th>Nimi</th><th>E-post</th><th>Isikukood</th><th>Roll</th></tr></thead>
+  <thead><tr><th>Name</th><th>Email</th><th>Personal code</th><th>Role</th></tr></thead>
   <tbody>
   <?php foreach($users as $u): ?>
   <tr>

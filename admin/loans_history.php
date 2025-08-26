@@ -7,10 +7,10 @@ JOIN books b ON b.id=l.book_id
 JOIN users u ON u.id=l.user_id 
 ORDER BY l.start_date DESC")->fetchAll();
 ?>
-<h1 class="h4 mb-3">Laenutuste ajalugu</h1>
+<h1 class="h4 mb-3">Loan History</h1>
 <div class="table-responsive">
 <table class="table table-bordered">
-  <thead><tr><th>Kasutaja</th><th>Raamat</th><th>Algus</th><th>Tähtaeg</th><th>Tagastatud</th><th>Olek</th></tr></thead>
+  <thead><tr><th>User</th><th>Book</th><th>Start</th><th>Due</th><th>Returned</th><th>Status</th></tr></thead>
   <tbody>
   <?php foreach($loans as $l): ?>
   <tr>
