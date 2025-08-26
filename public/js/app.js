@@ -1,4 +1,3 @@
-// public/js/app.js
 function validateEmail(email){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); }
 function validatePersonalCode(pc){ return /^\d{11}$/.test(pc) && /^[1-6]/.test(pc); }
 document.getElementById('registerForm')?.addEventListener('submit', function(e){

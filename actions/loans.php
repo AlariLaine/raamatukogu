@@ -3,7 +3,7 @@ session_start();
 require_once("../includes/config.php");
 require_once("../includes/auth_check.php");
 
-// Ainult user saab siia
+if ($_SESSION['role'] !== 'user') {
 if ($_SESSION['role'] !== 'user') {
     header("Location: ../public/");
     exit();

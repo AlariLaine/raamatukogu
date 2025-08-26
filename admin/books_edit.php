@@ -8,7 +8,7 @@ $stmt->execute([$id]);
 $book = $stmt->fetch();
 if(!$book){ echo "<div class='alert alert-warning'>Raamatut ei leitud.</div>"; require __DIR__.'/../templates/footer.php'; exit; }
 
-// loe autorid
+$as = $pdo->prepare("SELECT a.name FROM authors a JOIN book_authors ba ON ba.author_id=a.id WHERE ba.book_id=?");
 $as = $pdo->prepare("SELECT a.name FROM authors a JOIN book_authors ba ON ba.author_id=a.id WHERE ba.book_id=?");
 $as->execute([$id]);
 $authors = implode(', ', array_column($as->fetchAll(), 'name'));

@@ -1,5 +1,4 @@
 <?php
-// includes/auth_check.php
 require_once __DIR__.'/config.php';
 require_once __DIR__.'/functions.php';
 try_restore_session($pdo);

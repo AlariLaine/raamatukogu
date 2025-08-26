@@ -20,9 +20,9 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
             $ins = $pdo->prepare("INSERT INTO books (title,isbn,total_copies,available_copies) VALUES (?,?,?,?)");
             $ins->execute([$title,$isbn,$copies,$copies]);
             $book_id = $pdo->lastInsertId();
-            // autorid komadega
+            
             foreach(array_filter(array_map('trim', explode(',', $authors))) as $aname){
-                // leia/loo autor
+                
                 $s = $pdo->prepare("SELECT id FROM authors WHERE name = ?");
                 $s->execute([$aname]);
                 $aid = $s->fetchColumn();

@@ -11,7 +11,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
   elseif(strlen($personal_code)!==11){ $err='Isikukood peab olema 11 numbrit.'; }
   elseif($pw!==$pw2){ $err='Paroolid ei ühti.'; }
   else{
-    // uus kontroll duplikaatide vastu
+    
     $check = $conn->prepare("SELECT id FROM users WHERE personal_code=? OR email=?");
     $check->bind_param("ss", $personal_code, $email);
     $check->execute();

@@ -1,10 +1,8 @@
 <?php
 require_once __DIR__ . '/../includes/config.php';
-// kustuta session
 $_SESSION = [];
 session_destroy();
 
-// kustuta remember cookie ja andmebaasi token
 if(!empty($_COOKIE['remember_me'])){
     setcookie('remember_me', '', time()-3600, '/', '', false, true);
     if (isset($_SESSION['user_id'])) {
